@@ -15,6 +15,6 @@ def canSum(value, arr, memo = None):
     memo[value] = False
     return False
 
-
-print(canSum(7, [5,3,4,7])) #true and two ways
-print(canSum(300, [7,14])) #False
+if __name__ == "__main__":
+    print(canSum(7, [5,3,4,7])) #true and two ways
+    print(canSum(300, [7,14])) #False

@@ -10,5 +10,6 @@ def howSumTabular(target, array):
     # print(how_sum_tab)
     return how_sum_tab[target]
 
-print(howSumTabular(7, [5,4,3,7])) #True
-print(howSumTabular(300, [7,14])) #False
+if __name__ == "__main__":
+    print(howSumTabular(7, [5,4,3,7])) #True
+    print(howSumTabular(300, [7,14])) #False

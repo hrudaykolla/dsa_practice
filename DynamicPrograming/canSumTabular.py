@@ -9,5 +9,6 @@ def canSumTabular(target, array):
     # print(can_sum_tab)
     return can_sum_tab[target]
 
-print(canSumTabular(7, [5,4,3,7])) #True
-print(canSumTabular(300, [7,14])) #False
+if __name__ == "__main__":
+    print(canSumTabular(7, [5,4,3,7])) #True
+    print(canSumTabular(300, [7,14])) #False

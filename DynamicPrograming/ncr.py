@@ -1,37 +1,63 @@
-# Returns nCr % p
+import time
+
 def nCrModp(n, r, p):
-	#if r is very big we can calculate ncn-r
-    if n-r < r:
-        r = n-r
-    # a list of C, 1row and r+1 columns
-    C = [0 for i in range(r+1)]
+    """
+    Compute nCr % p using a bottom-up dynamic programming approach.
 
-    #make element 1 equal to 1, since nc0 is 1 for any r
-    C[0] = 1
+    Args:
+        n (int): total number of items
+        r (int): number of items to choose
+        p (int): modulo value
 
-    for i in range(1,n+1):
-        for j in range(min(i,r),0,-1):
-            #current element = previous row current j + previous row current j-1
-            C[j] = C[j]+C[j-1]
-        
+    Returns:
+        int: value of nCr % p
+    """
+    if r > n - r:
+        r = n - r
+    C = [0 for _ in range(r+1)]
+    C[0] = 1  # Base case: nC0 = 1
+    for i in range(1, n + 1):
+        for j in range(min(i, r), 0, -1):
+            C[j] = (C[j] + C[j - 1]) % p  # Apply modulo here
     return C[r]
-        
 
-def nCrModpRec(n, r, p, memo = None):
-    if r > n-r:
-        r = n-r
-    memo = {} if memo is None else memo
-    if r in memo: return memo[r]
-    if r == 0: return 1
-    memo[r] = nCrModpRec(n, r-1, p, memo)*((n-r+1)/r)
-    return nCrModpRec(n, r-1, p, memo)*((n-r+1)/r)
-    
+def nCrModpRec(n, r, p, memo=None):
+    """
+    Compute nCr % p using memoized recursion (inefficient for large n).
 
-	# return C[r]
+    Args:
+        n (int): total number of items
+        r (int): number of items to choose
+        p (int): modulo value
+        memo (dict): memoization dictionary
 
-# Driver Program
+    Returns:
+        int: value of nCr % p
+    """
+    if r > n - r:
+        r = n - r
+    if r == 0 or n == r:
+        return 1
+    if memo is None:
+        memo = {}
+    if (n, r) in memo:
+        return memo[(n, r)]
+
+    # Use Pascal's identity: nCr = (n-1)C(r) + (n-1)C(r-1)
+    memo[(n, r)] = (nCrModpRec(n - 1, r - 1, p, memo) + nCrModpRec(n - 1, r, p, memo)) % p
+    return memo[(n, r)]
+
+
 n = 100
 r = 5
-p = 100000000000
-print('Value of nCr % p is', nCrModp(n, r, p))
-print('Value of nCr % p is', nCrModpRec(n, r, p))
+p = 10**11  # 100000000000
+
+start = time.time()
+result_dp = nCrModp(n, r, p)
+end = time.time()
+print(f'Value of nCr % p using DP: {result_dp} (Time: {end - start:.6f}s)')
+
+start = time.time()
+result_rec = nCrModpRec(n, r, p)
+end = time.time()
+print(f'Value of nCr % p using Recursion: {result_rec} (Time: {end - start:.6f}s)')

@@ -11,4 +11,5 @@ def gridTraveller(m,n, memo = {}):
     memo[b] = memo[a]
     return memo[a]
 
-print(gridTraveller(2,3))
+if __name__ == "__main__":
+    print(gridTraveller(2,3))

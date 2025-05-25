@@ -16,6 +16,6 @@ def howSum(value, arr, memo=None):
             return how
     memo[value] = None
     return None
-
-print(howSum(7, [1,2,3]))
-# print(howSum(300,[5,3]))
+if __name__ == "__main__":
+    print(howSum(7, [1,2,3]))
+    # print(howSum(300,[5,3]))

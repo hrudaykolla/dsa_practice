@@ -12,4 +12,5 @@ def canConstructTabular(target, array):
     print(can_construct_tab)
     return can_construct_tab[len(target)]
 
-print(canConstructTabular('abcdef', ['ab','abc','cd','def']))
+if __name__ == "__main__":
+    print(canConstructTabular('abcdef', ['ab','abc','cd','def']))
